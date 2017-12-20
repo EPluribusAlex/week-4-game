@@ -2,27 +2,27 @@ $(document).ready(function() {
 	//available characters
 	var char1 = {
 		name: "Luke Skywalker",
-		counterAtkPwr: 10, 
-		attackPwr: 4,
-		hp: 60,
+		counterAtkPwr: 8, 
+		attackPwr: 10,
+		hp: 50,
 	}
 	var char2 = {
 		name: "Darth Vader",
-		counterAtkPwr: 30,
-		attackPwr: 6,
-		hp: 40,
+		counterAtkPwr: 16,
+		attackPwr: 8,
+		hp: 60,
 	}
 	var char3 = {
 		name: "Obi-Wan Kenobi",
-		counterAtkPwr: 20,
-		attackPwr: 5,
-		hp: 50,
+		counterAtkPwr: 12,
+		attackPwr: 6,
+		hp: 70,
 	}
 	var char4 = {
 		name: "Emperor Palpatine",
-		counterAtkPwr: 15,
-		attackPwr: 8,
-		hp: 30,
+		counterAtkPwr: 20,
+		attackPwr: 4,
+		hp: 80,
 	}
 
 	var playerHP = "no player HP";
@@ -109,10 +109,10 @@ $(document).ready(function() {
 		else {
 
 			//convert chosen enemy thumbnail into object and change id of defender assciated thumbnail
-			var playerSelectId = that.id;
-			console.log(playerSelectId);
+			var defenderSelectId = that.id;
+			console.log(defenderSelectId);
 
-			switch(playerSelectId) {
+			switch(defenderSelectId) {
 				case "luke": 
 					$("#luke").attr("id", "defender");
 					defender = char1;
@@ -138,24 +138,86 @@ $(document).ready(function() {
 			$("#reserve").append($("#palpatine"));
 			$("#pageTitle2").html("You are facing " + defender.name);
 			$("#pageTitle3").html("Remaining foes");
-			$("#attackButton").html("<button class='btn btn-default' type='button'>Attack!</button>");
 
 			defenderHP = defender.hp;
 			console.log("defender HP: " + defenderHP);
+			attackDefender();
 		}
 
 	}
 
-	//player attacks defender
+	//creates attack button, which engages attacking parameters when button is used
 	function attackDefender() {
 
+		$("#attackButton").html("<button class='btn btn-default' id='attack_function' type='button'>Attack!</button>");
+		$("#attack_function").click(function() {
+
+			defenderHP = defenderHP - playerAtkPwr;
+			console.log("Defender has " + defenderHP + " hit points");
+			playerAtkPwr = playerAtkPwr + playerSelect.attackPwr;
+			console.log("New player attack power: " + playerAtkPwr);
+
+			if(defenderHP <= 0) {
+
+				console.log(defender.name + " has been defeated!");
+
+				var e = enemies.indexOf(defender);
+				enemies.splice(e, 1);
+				console.log(enemies);
+
+				if(enemies.length == 0) {
+
+					$("#enemy_characters").empty();
+					$("#pageTitle2").empty();
+					$("#pageTitle3").empty();
+					$("#attackButton").empty();
+					$("#pageTitle1").html(playerSelect.name + " is victorious!");
+					$("#player").animate({height: '400px', width: '400px'}, "slow");				
+					resetGame();
+				} 				
+
+ 				else {
+
+					defender = "no defender";
+					console.log(defender);
+
+					$("#enemy_characters").empty();
+					$("#enemy_characters").append($("#luke"));
+					$("#enemy_characters").append($("#vader"));
+					$("#enemy_characters").append($("#obi-wan"));
+					$("#enemy_characters").append($("#palpatine"));
+					$("#pageTitle2").html("Choose your next opponent");
+					$("#pageTitle3").empty();
+					$("#attackButton").empty();
+
+				}
+			}
+
+			else {
+
+				playerHP = playerHP - defender.counterAtkPwr;
+				console.log("Player has " + playerHP + " hit points");
+
+				if(playerHP <= 0) {
+
+					console.log(playerSelect.name + " has lost!");
+					$("#pageTitle2").html("Your hero has fallen!");
+					resetGame();
+				}
+			}
+
+		});
 	}
 	//resets game after victory or defeat
 	function resetGame() {
 
+		$("#attackButton").html("<button class='btn btn-default' id='reset' type='button'>Play again?</button>");
+		$("#reset").click(function() {
+
+		});
 	}
 
-	//begins appropriate selection function 
+	//begins appropriate selection function when a character is clicked
 	$(".character_img").on("click", function() {
 		
 		that = this;
@@ -172,6 +234,5 @@ $(document).ready(function() {
 			console.log("fighting time");
 		}
 	});
-
 
 });
