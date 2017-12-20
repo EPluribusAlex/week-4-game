@@ -30,8 +30,8 @@ $(document).ready(function() {
 	var defenderHP = "no defender HP";
 	var playerSelect = "no hero selected";
 	var defender = "no defender";
-	var characters = [char1, char2, char3, char4]
-	var enemies = []
+	var characters = [char1, char2, char3, char4];
+	var enemies = [];
 
 	var that;
 
@@ -95,7 +95,10 @@ $(document).ready(function() {
 
 		console.log("player HP: " + playerHP);
 		console.log("player attack: " + playerAtkPwr);
-		console.log("defender HP: " + defenderHP); 
+		console.log("defender HP: " + defenderHP);
+
+		$("#player_health").html("Hit Points: " + playerHP);
+		$("#player_attack").html("Attack Power: " + playerAtkPwr); 
 
 	}
 
@@ -141,6 +144,9 @@ $(document).ready(function() {
 
 			defenderHP = defender.hp;
 			console.log("defender HP: " + defenderHP);
+			$("#enemy_health").html("Hit Points: " + defenderHP);
+			$("#enemy_counter").html("Counter Attack: " + defender.counterAtkPwr);
+
 			attackDefender();
 		}
 
@@ -154,12 +160,17 @@ $(document).ready(function() {
 
 			defenderHP = defenderHP - playerAtkPwr;
 			console.log("Defender has " + defenderHP + " hit points");
+			$("#enemy_health").html("Hit Points: " + defenderHP);
 			playerAtkPwr = playerAtkPwr + playerSelect.attackPwr;
 			console.log("New player attack power: " + playerAtkPwr);
+			$("#player_attack").html("Attack Power: " + playerAtkPwr);
 
 			if(defenderHP <= 0) {
 
 				console.log(defender.name + " has been defeated!");
+
+				$("#enemy_health").empty();
+				$("#enemy_counter").empty();
 
 				var e = enemies.indexOf(defender);
 				enemies.splice(e, 1);
@@ -172,7 +183,7 @@ $(document).ready(function() {
 					$("#pageTitle3").empty();
 					$("#attackButton").empty();
 					$("#pageTitle1").html(playerSelect.name + " is victorious!");
-					$("#player").animate({height: '400px', width: '400px'}, "slow");				
+					$("#player").animate({height: '300px', width: '300px'}, "slow");				
 					resetGame();
 				} 				
 
@@ -197,6 +208,7 @@ $(document).ready(function() {
 
 				playerHP = playerHP - defender.counterAtkPwr;
 				console.log("Player has " + playerHP + " hit points");
+				$("#player_health").html("Hit Points: " + playerHP);
 
 				if(playerHP <= 0) {
 
@@ -214,25 +226,70 @@ $(document).ready(function() {
 		$("#attackButton").html("<button class='btn btn-default' id='reset' type='button'>Play again?</button>");
 		$("#reset").click(function() {
 
+			playerHP = "no player HP";
+			playerAtkPwr = "no player atk";
+			defenderHP = "no defender HP";
+			playerSelect = "no hero selected";
+			defender = "no defender";
+			characters = [char1, char2, char3, char4]
+			enemies = [];
+
+			console.log(playerHP);
+			console.log(playerAtkPwr);
+			console.log(defenderHP); 
+			console.log(playerSelect);
+			console.log(defender);
+			console.log(characters);
+			console.log(enemies);
+
+			$("#luke").attr("id", "defender");
+			$("#vader").attr("id", "defender");
+			$("#obi-wan").attr("id", "defender");
+			$("#palpatine").attr("id", "defender");
+
+			$("#enemy_characters").empty();
+			$("#pageTitle2").empty();
+			$("#pageTitle3").empty();
+			$("#attackButton").empty();
+			$("#reserve").empty();
+			$("#starting_characters").empty();
+			$("#player_health").empty();
+			$("#player_attack").empty();
+			$("#enemy_health").empty();
+			$("#enemy_counter").empty();
+
+			$("#pageTitle1").html("Select Your Character");
+			$("#starting_characters").append('<a href="#" class="thumbnail pull-left character_img" id="luke"><img src="assets/images/luke-skywalker.jpg" alt="luke"></a>');				
+			$("#starting_characters").append('<a href="#" class="thumbnail pull-left character_img" id="vader"><img src="assets/images/darth-vader.jpg" alt="vader"></a>');				
+			$("#starting_characters").append('<a href="#" class="thumbnail pull-left character_img" id="obi-wan"><img src="assets/images/obi-wan.jpg" alt="obi-wan"></a>');				
+			$("#starting_characters").append('<a href="#" class="thumbnail pull-left character_img" id="palpatine"><img src="assets/images/emperor-palpatine.jpeg" alt="palpatine"></a>');
+
+			playGame();
+
 		});
 	}
 
 	//begins appropriate selection function when a character is clicked
-	$(".character_img").on("click", function() {
-		
-		that = this;
+	function playGame () {
+		$(".character_img").on("click", function() {
+			
+			that = this;
 
-		if(playerSelect === "no hero selected") {
-			chooseCharacter();
-		}
+			if(playerSelect === "no hero selected") {
+				chooseCharacter();
+			}
 
-		else if(defender === "no defender") {
-			chooseDefender();
-		}
+			else if(defender === "no defender") {
+				chooseDefender();
+			}
 
-		else {
-			console.log("fighting time");
-		}
-	});
+			else {
+				console.log("fighting time");
+			}
+		});
+	}
+
+	//begins the game!
+	playGame();
 
 });

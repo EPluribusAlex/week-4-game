@@ -36,25 +36,27 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-12">
+					<div class="col-md-12" id="starting_characters">
 						<a href="#" class="thumbnail pull-left character_img" id="luke">
-	      				<img src="" alt="luke">
+	      				<img src="assets/images/luke-skywalker.jpg" alt="luke">
 	    				</a>				
 						<a href="#" class="thumbnail pull-left character_img" id="vader">
-	      				<img src="" alt="vader">
+	      				<img src="assets/images/darth-vader.jpg" alt="vader">
 	    				</a>				
 						<a href="#" class="thumbnail pull-left character_img" id="obi-wan">
-	      				<img src="" alt="obi-wan">
+	      				<img src="assets/images/obi-wan.jpg" alt="obi-wan">
 	    				</a>				
 						<a href="#" class="thumbnail pull-left character_img" id="palpatine">
-	      				<img src="" alt="palpatine">
-	    				</a>				
+	      				<img src="assets/images/emperor-palpatine.jpeg" alt="palpatine">
+	    				</a>	
+	    				<h3 id="player_health"><h3>
+						<h3 id="player_attack"></h3>			
 					</div>
 				</div>
 			</div>	
 		</div>
 	
-		<!--enemy and battle row-->
+		<!--enemy row-->
 		<div class="row">
 
 			<!--available enemies/enemy selected-->
@@ -66,7 +68,10 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12">	
-						<div id="enemy_characters"></div>			
+						<div id="enemy_characters"></div>
+						<h3 id="enemy_health"></h3>
+						<h3 id="enemy_counter"></h3>
+						<div class="col-md-4" id="attackButton"></div>			
 					</div>
 				</div>
 			</div>
@@ -85,15 +90,6 @@
 				</div>
 			</div>
 
-		</div>
-
-		<!--attack box/reset button-->
-		<div class="row">
-			<div class="col-md-4" id="attackButton">
-			</div>
-			<div class="col-md-4">
-				<div class="game_end"></div>				
-			</div>
 		</div>
 
 	</div>
