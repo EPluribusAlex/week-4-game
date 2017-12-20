@@ -25,9 +25,9 @@ $(document).ready(function() {
 		hp: 30,
 	}
 
-	var playerHP = "no hero HP";
-	var playerAtkPwr = "no hero atk";
-	var defenderHP = "no defend dfc";
+	var playerHP = "no player HP";
+	var playerAtkPwr = "no player atk";
+	var defenderHP = "no defender HP";
 	var playerSelect = "no hero selected";
 	var defender = "no defender";
 	var characters = [char1, char2, char3, char4]
@@ -39,6 +39,7 @@ $(document).ready(function() {
 	console.log(playerAtkPwr);
 	console.log(defenderHP); 
 	console.log(playerSelect);
+	console.log(defender);
 	console.log(characters);
 	console.log(enemies);
 
@@ -83,20 +84,18 @@ $(document).ready(function() {
 		console.log(enemies);
 
 		//update html based on selection
-		$("#player_character").append(that);
 		$(".character_img").not(that).appendTo("#enemy_characters");
-		$("#pageTitle1").empty();
-		$("#pageTitle2").html("You are " + playerSelect.name);
-		$("#pageTitle3").html("Now Choose Your Foe");
+		$("#pageTitle1").html("You are " + playerSelect.name);
+		$("#pageTitle2").html("Now Choose Your Foe");
 
 		//set player statistics
 		playerHP = playerSelect.hp;
 		playerAtkPwr = playerSelect.attackPwr;
 		defenderHP = "no defender selected";
 
-		console.log(playerHP);
-		console.log(playerAtkPwr);
-		console.log(defenderHP); 
+		console.log("player HP: " + playerHP);
+		console.log("player attack: " + playerAtkPwr);
+		console.log("defender HP: " + defenderHP); 
 
 	}
 
@@ -132,15 +131,21 @@ $(document).ready(function() {
 					break;
 			}
 
-			//update html based on defender selection
+			//update html and variables based on defender selection, including creation of the attack button
 			$("#reserve").append($("#luke"));
 			$("#reserve").append($("#vader"));
 			$("#reserve").append($("#obi-wan"));
 			$("#reserve").append($("#palpatine"));
+			$("#pageTitle2").html("You are facing " + defender.name);
+			$("#pageTitle3").html("Remaining foes");
+			$("#attackButton").html("<button class='btn btn-default' type='button'>Attack!</button>");
 
+			defenderHP = defender.hp;
+			console.log("defender HP: " + defenderHP);
 		}
 
 	}
+
 	//player attacks defender
 	function attackDefender() {
 
@@ -156,17 +161,16 @@ $(document).ready(function() {
 		that = this;
 
 		if(playerSelect === "no hero selected") {
-
 			chooseCharacter();
+		}
 
+		else if(defender === "no defender") {
+			chooseDefender();
 		}
 
 		else {
-
-			chooseDefender();
-
+			console.log("fighting time");
 		}
-
 	});
 
 
