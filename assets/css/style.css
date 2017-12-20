@@ -1,4 +1,42 @@
+body {
+	background-image: url("../images/background.png");
+	font-family: 'Play', sans-serif;
+}
+
 .thumbnail {
+	position: relative;
 	width: 160px;
 	height: 160px;
+	background-color: #911787;
+}
+
+.bottom-left {
+	position: absolute;
+	bottom: 8px;
+	left: 16px;
+	color: #FBC500;
+	text-shadow: -2px -2px 4px #000000;
+	font-weight: bold;
+	opacity: 0;
+}
+
+.bottom-left:hover {
+	opacity: 1.0;
+}
+
+.title_div {
+	color: #359817;
+	border-bottom: 2px solid #90122B;
+}
+
+.section_subtitle {
+	color: #CE2828;
+}
+
+.player_info {
+	color: #27C7CE;
+}
+
+.enemy_info {
+	color: #F44006;
 }
